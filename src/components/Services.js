@@ -11,7 +11,7 @@ export default function Services() {
           <h2 className="services__title display">The menu of care</h2>
         </div>
         <p className="services__intro reveal" data-delay="1">
-          Four signature treatments, each available to lengthen, layer, or soften.
+          Six treatments, from a full-hour reset to a ten-minute tune-up.
           Not sure where to begin? We'll shape it with you on arrival.
         </p>
       </div>

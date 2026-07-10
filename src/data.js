@@ -13,48 +13,78 @@ export const HERO = {
 };
 
 export const MARQUEE = [
-  'Deep Tissue',
-  'Aromatherapy',
-  'Hot Stone',
-  'Lomi Lomi',
-  'Prenatal',
-  'Craniosacral',
-  'Reflexology',
-  'Sports Recovery',
+  'Full Body',
+  'Back',
+  'Legs',
+  'Head & Neck',
+  'Trigger Points',
+  'Sport Massage',
+  'Recovery',
+  'Deep Release',
 ];
 
+// `slug` must match the event type slug in Cal.com — the booking widget
+// embeds cal.com/<user>/<slug>. `label` is the short name for booking tabs.
 export const SERVICES = [
   {
     id: '01',
-    name: 'Deep Tissue',
-    duration: '60 / 90 min',
-    price: 'from $140',
-    text: 'Slow, deliberate pressure that releases the deepest layers of tension held in muscle and fascia.',
+    name: 'Full Body',
+    label: 'Full body',
+    slug: 'full-body',
+    duration: '60 min',
+    price: '€35',
+    text: 'Head to toe in one unhurried hour — including the scalp and the front side of the torso. A full-system reset.',
     image: img('1544161515-4ab6ce6db874'),
   },
   {
     id: '02',
-    name: 'Aromatherapy Ritual',
-    duration: '75 min',
-    price: 'from $160',
-    text: 'A full-body treatment guided by botanical oils blended to your mood — grounding, uplifting, or restful.',
+    name: 'Back',
+    label: 'Back',
+    slug: 'back',
+    duration: '30 min',
+    price: '€20',
+    text: 'Focused work where the day accumulates — shoulders, spine, lower back — with slow, deliberate pressure.',
     image: img('1519823551278-64ac92734fb1'),
   },
   {
     id: '03',
-    name: 'Hot Stone',
-    duration: '90 min',
-    price: 'from $185',
-    text: 'Warm basalt stones melt through stubborn knots while long strokes carry the heat through the body.',
+    name: 'Legs',
+    label: 'Legs',
+    slug: 'legs',
+    duration: '15 min',
+    price: '€15',
+    text: 'A quick reset for tired legs: circulation, lightness, and release after long days on your feet.',
     image: img('1540555700478-4be289fbecef'),
   },
   {
     id: '04',
-    name: 'Restorative Flow',
-    duration: '60 min',
-    price: 'from $130',
-    text: 'A gentler, rhythmic session designed to quiet the nervous system and return you to your breath.',
+    name: 'Head, Neck & Arms',
+    label: 'Head · Neck · Arms',
+    slug: 'head',
+    duration: '30 min',
+    price: '€20',
+    text: 'The antidote to a screen-bound day — scalp, neck and arms worked until the tension lets go.',
     image: img('1512290923902-8a9f81dc236c'),
+  },
+  {
+    id: '05',
+    name: 'Trigger Points',
+    label: 'Trigger points',
+    slug: 'trigger-points',
+    duration: '20–30 min',
+    price: '€30',
+    text: 'Precise, deep work on the specific knots that keep coming back — targeted release where it matters most.',
+    image: img('1591343395082-e120087004b4'),
+  },
+  {
+    id: '06',
+    name: 'Sport Massage — 1 Zone',
+    label: 'Sport (1 zone)',
+    slug: 'sport-massage-1-zone',
+    duration: '10–30 min',
+    price: '€10',
+    text: 'Fast, focused work on a single muscle group — before training or after, exactly where you need it.',
+    image: img('1515377905703-c4788e51af15'),
   },
 ];
 
@@ -86,13 +116,13 @@ export const TESTIMONIALS = [
     quote:
       'The care is genuinely bespoke. They read what my body needed before I could put it into words.',
     name: 'Daniel R.',
-    detail: 'Deep Tissue, monthly',
+    detail: 'Full body, monthly',
   },
   {
     quote:
       'An hour here undoes a week of screens and deadlines. It has become non-negotiable in my calendar.',
     name: 'Priya S.',
-    detail: 'Aromatherapy Ritual',
+    detail: 'Head, neck & arms',
   },
 ];
 

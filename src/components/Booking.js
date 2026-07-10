@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react';
 import Cal, { getCalApi } from '@calcom/embed-react';
+import { SERVICES } from '../data';
 import './Booking.css';
 
 const CAL_USER = 'maksym-bocharov-dll5ry';
-
-const SERVICES = [
-  { slug: 'oil-massage', label: 'Oil', meta: '120 min · €40' },
-  { slug: 'sport-massage', label: 'Sport', meta: '60 min · €70' },
-  { slug: 'head-massage', label: 'Head', meta: '45 min · €40' },
-  { slug: 'first-massage', label: 'Neck', meta: '30 min · €30' },
-];
 
 /* Citadel palette for the embed. hideEventTypeDetails removes the sidebar
    with the host's avatar, name and bio. */
@@ -77,7 +71,7 @@ export default function Booking() {
               onClick={() => setService(s.slug)}
             >
               <span className="booking__service-name">{s.label}</span>
-              <span className="booking__service-meta">{s.meta}</span>
+              <span className="booking__service-meta">{`${s.duration} · ${s.price}`}</span>
             </button>
           ))}
         </div>
