@@ -1,0 +1,152 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--panel);
+  z-index: 100;
+  /* Gradient scrim: solid black at the left edge, easing gently to transparent.
+     Extra stops smooth out the fade so there's no hard edge. */
+  background: linear-gradient(
+    to right,
+    rgba(52, 38, 26, 0.95) 0%,
+    rgba(52, 38, 26, 0.88) 20%,
+    rgba(52, 38, 26, 0.72) 40%,
+    rgba(52, 38, 26, 0.5) 58%,
+    rgba(52, 38, 26, 0.28) 74%,
+    rgba(52, 38, 26, 0.12) 88%,
+    rgba(52, 38, 26, 0) 100%
+  );
+  color: var(--cream);
+  /* Closed by default; slides in when revealed (desktop) or opened (mobile). */
+  transform: translateX(-100%);
+  transition: transform 0.6s var(--ease), box-shadow 0.55s var(--ease);
+}
+
+/* Desktop: panel opens once the logo has docked into its top-left slot. */
+@media (min-width: 901px) {
+  .nav--revealed {
+    transform: none;
+  }
+}
+
+.nav__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* titles vertically centered in the panel */
+  height: 100%;
+  padding: 0 var(--panel-pad);
+}
+
+.nav__links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.nav__links a {
+  width: fit-content;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.82;
+  position: relative;
+  padding-bottom: 3px;
+  transition: opacity 0.3s var(--ease);
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.nav__links a:hover {
+  opacity: 1;
+}
+.nav__links a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Active section — bolder and underlined. */
+.nav__links a.is-active {
+  opacity: 1;
+  font-weight: 700;
+}
+.nav__links a.is-active::after {
+  transform: scaleX(1);
+}
+
+/* Burger + backdrop are drawer chrome — desktop hides them entirely. */
+.nav__burger {
+  display: none;
+}
+.nav__backdrop {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .nav {
+    width: min(84vw, 340px);
+    border-right: none;
+  }
+  .nav--open {
+    transform: none;
+    box-shadow: 0 0 80px rgba(68, 50, 35, 0.28);
+  }
+
+  .nav__burger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: fixed;
+    top: 20px;
+    right: var(--pad);
+    width: 44px;
+    height: 44px;
+    z-index: 130;
+    /* Dark pill so the cream bars read on both the hero and the cream page. */
+    background: rgba(68, 50, 35, 0.4);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+  }
+  .nav__burger span {
+    height: 1.5px;
+    width: 20px;
+    background: var(--cream);
+    transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
+  }
+  .nav__burger.is-open {
+    background: var(--ink);
+  }
+  .nav__burger.is-open span:first-child {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .nav__burger.is-open span:last-child {
+    transform: translateY(-0px) rotate(-45deg);
+  }
+
+  .nav__backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(68, 50, 35, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease);
+  }
+  .nav--open ~ .nav__backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

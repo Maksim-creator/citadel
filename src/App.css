@@ -1,38 +1,17 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  position: relative;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Sections run full-bleed so their background continues *under* the nav panel —
+   otherwise the panel's transparent edge reveals a seam between the section
+   colour and the body behind the gutter. Only their content is inset to clear
+   the panel. The hero centres itself in the full viewport, so it's excluded. */
+@media (min-width: 901px) {
+  .services,
+  .about,
+  .booking,
+  .footer {
+    padding-left: var(--panel);
   }
 }

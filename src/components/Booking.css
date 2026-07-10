@@ -1,0 +1,120 @@
+.booking {
+  background: var(--ink);
+  color: var(--cream);
+  padding-block: var(--section);
+}
+.booking__inner {
+  max-width: 1100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.booking .eyebrow--light {
+  color: rgba(255, 249, 243, 0.66);
+}
+.booking__title {
+  font-size: clamp(3rem, 8vw, 7rem);
+  margin: 1.5rem 0 1.75rem;
+}
+.booking__lede {
+  font-size: 1.1rem;
+  font-weight: 300;
+  max-width: 48ch;
+  color: rgba(255, 249, 243, 0.82);
+  line-height: 1.7;
+}
+
+.booking__services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 3rem;
+}
+.booking__service {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid rgba(255, 249, 243, 0.24);
+  border-radius: 16px;
+  color: var(--cream);
+  text-align: left;
+  transition: all 0.4s var(--ease);
+}
+.booking__service:hover {
+  border-color: rgba(255, 249, 243, 0.6);
+}
+.booking__service.is-active {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--ink);
+}
+.booking__service-name {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.booking__service-meta {
+  font-size: 0.74rem;
+  opacity: 0.65;
+  letter-spacing: 0.04em;
+}
+
+.booking__cal {
+  width: 100%;
+  margin-top: 1.5rem;
+  text-align: left;
+  background: var(--cream);
+  border-radius: 20px;
+  padding: clamp(0.5rem, 2vw, 1.5rem);
+  min-height: 420px;
+}
+
+.booking__alt {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.booking__alt span {
+  color: rgba(255, 249, 243, 0.6);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+}
+.booking__alt a {
+  border-bottom: 1px solid rgba(255, 249, 243, 0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.4s var(--ease);
+}
+.booking__alt a:hover {
+  border-color: var(--cream);
+}
+
+
+@media (max-width: 560px) {
+  .booking__title {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+    margin: 1.1rem 0 1.35rem;
+  }
+  .booking__lede {
+    font-size: 1rem;
+  }
+  .booking__cal {
+    margin-top: 2.25rem;
+  }
+  .booking__alt {
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 2rem;
+  }
+}
