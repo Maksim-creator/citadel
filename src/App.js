@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import useReveal from './hooks/useReveal';
+import useSmoothSnap from './hooks/useSmoothSnap';
 import Nav from './components/Nav';
 import Logo from './components/Logo';
 import Hero from './components/Hero';
@@ -11,6 +12,7 @@ import Footer from './components/Footer';
 
 function App() {
   useReveal();
+  useSmoothSnap();
   // Shared "past the hero" flag: the logo docks and the nav panel opens together
   // once the reader scrolls to the description and the big logo is nearly gone.
   const [docked, setDocked] = useState(false);

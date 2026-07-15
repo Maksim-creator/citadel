@@ -86,6 +86,16 @@ export const SERVICES = [
     text: 'Fast, focused work on a single muscle group — before training or after, exactly where you need it.',
     image: img('1515377905703-c4788e51af15'),
   },
+  {
+    id: '07',
+    name: 'On-site Massage',
+    label: 'On-site',
+    slug: 'on-site-massage',
+    duration: '60 min',
+    price: '€45',
+    text: 'Professional massage delivered at your location for convenience and relaxation.',
+    image: img('1600334129128-685c5582fd35'),
+  },
 ];
 
 export const EXPERIENCE = {

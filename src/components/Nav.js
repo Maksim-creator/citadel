@@ -29,7 +29,7 @@ export default function Nav({ revealed = false }) {
     <>
       {/* Floating toggle — visible on phones only, where the panel is a drawer. */}
       <button
-        className={`nav__burger ${open ? 'is-open' : ''}`}
+        className={`nav__burger ${open ? 'is-open' : ''} ${revealed ? 'is-docked' : ''}`}
         aria-label="Toggle menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}

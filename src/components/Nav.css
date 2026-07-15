@@ -125,6 +125,13 @@
     background: var(--cream);
     transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
   }
+  /* Once the full-width glass topbar is behind it, the burger's own pill
+     would double up — drop it and let the strip carry the backdrop. */
+  .nav__burger.is-docked:not(.is-open) {
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
   .nav__burger.is-open {
     background: var(--ink);
   }

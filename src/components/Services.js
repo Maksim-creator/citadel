@@ -34,7 +34,15 @@ export default function Services() {
               <p className="service__text">{s.text}</p>
               <div className="service__meta">
                 <span>{s.duration}</span>
-                <a href="#book" className="service__link">
+                <a
+                  href="#book"
+                  className="service__link"
+                  onClick={() =>
+                    window.dispatchEvent(
+                      new CustomEvent('booking:service', { detail: s.slug })
+                    )
+                  }
+                >
                   Book <span className="btn__arrow">→</span>
                 </a>
               </div>

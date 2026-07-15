@@ -3,7 +3,7 @@ import Cal, { getCalApi } from '@calcom/embed-react';
 import { SERVICES } from '../data';
 import './Booking.css';
 
-const CAL_USER = 'maksym-bocharov-dll5ry';
+const CAL_USER = 'citadel.massage';
 
 /* Citadel palette for the embed. hideEventTypeDetails removes the sidebar
    with the host's avatar, name and bio. */
@@ -38,6 +38,15 @@ const CAL_UI = {
 
 export default function Booking() {
   const [service, setService] = useState(SERVICES[0].slug);
+
+  // "Book" links in the Services section broadcast the chosen slug.
+  useEffect(() => {
+    const onPick = (e) => {
+      if (SERVICES.some((s) => s.slug === e.detail)) setService(e.detail);
+    };
+    window.addEventListener('booking:service', onPick);
+    return () => window.removeEventListener('booking:service', onPick);
+  }, []);
 
   // Each service embeds under its own namespace, so theme every one we show.
   useEffect(() => {

@@ -43,8 +43,10 @@
   box-sizing: border-box;
 }
 
+/* Smooth scrolling + section snapping is handled by Lenis (useSmoothSnap).
+   Native scroll-behavior/scroll-snap are intentionally off — combining them
+   with JS smooth scroll causes jank. */
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -184,7 +186,6 @@ button {
 .reveal[data-delay="4"] { transition-delay: 0.4s; }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 

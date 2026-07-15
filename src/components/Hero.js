@@ -33,10 +33,6 @@ export default function Hero() {
       {/* The brand mark itself is the fixed <Logo />, centered here on load.
           Everything below sits under it. */}
       <div className="hero__content container">
-        <p className="hero__desc reveal">
-          A house of restorative massage in the heart of the city — unhurried
-          hands, warm rooms, and rituals shaped entirely around you.
-        </p>
         <div className="hero__meta reveal" data-delay="1">
           <a href="#contacts" className="hero__contacts">
             Contacts

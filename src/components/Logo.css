@@ -1,63 +1,90 @@
-/* Anchor: absolute so the logo inside rides the page scroll natively (no JS, no
-   jitter). Horizontal centering via text-align means no transform on an ancestor,
-   so the docked logo's position:fixed still resolves to the viewport. Vertical
-   offset lands the (scaled) logo's centre near 40vh. */
+/* Hero anchor: absolute, so the big logo rides up with the page natively
+   (no JS on scroll). Centering via flex — no transforms, so Framer Motion's
+   layout measurements stay exact. */
 .brand-logo-anchor {
   position: absolute;
   top: calc(40vh - 22px);
   left: 0;
   right: 0;
   z-index: 120;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   pointer-events: none;
 }
 
+/* Shared look. The hero/docked size difference is pure font-size — Framer's
+   FLIP scales the mark smoothly between the two. */
 .brand-logo {
   display: inline-flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   pointer-events: auto;
-  transform-origin: center center;
-  transform: scale(var(--hero-scale, 1)); /* phase 1 hero size (static) */
   color: var(--cream);
   font-family: var(--serif);
   line-height: 1;
-  text-align: left;
+  text-align: center;
+}
+
+/* Hero logo sizes are global so Hero.css can offset its content below the
+   mark using the exact same values. */
+:root {
+  --logo-hero-name: clamp(3.05rem, 11vw, 9.35rem);
+  --logo-hero-sub: clamp(1rem, 3.62vw, 3.08rem);
+}
+
+.brand-logo--hero {
   text-shadow: 0 1px 34px rgba(52, 38, 26, 0.28);
-  opacity: 0;
-  transition: color 0.4s var(--ease), text-shadow 0.4s var(--ease),
-    opacity 0.6s var(--ease);
+  /* ~65vw wide mark, matching the old JS-measured scale (min ×1.8, max ×5.5) */
+  --name-size: var(--logo-hero-name);
+  --sub-size: var(--logo-hero-sub);
 }
 
-.brand-logo.is-ready {
-  opacity: 1;
-}
-
-/* Phase 2: fixed slot; the scrub transform is set inline from JS. */
-.brand-logo.is-docking {
+.brand-logo--docked {
   position: fixed;
   top: 20px;
   left: var(--panel-pad);
-}
-
-/* Docked over the dark panel — stays cream, drop the glow. */
-.brand-logo.is-solid {
-  text-shadow: none;
+  z-index: 120;
+  --name-size: 1.7rem;
+  --sub-size: 0.56rem;
 }
 
 .brand-logo__name {
-  font-size: 1.7rem;
+  font-size: var(--name-size, 1.7rem);
   font-weight: 500;
   letter-spacing: 0.14em;
+  margin-right: -0.14em; /* cancel trailing letter-space so centring is optical */
 }
 
 .brand-logo__sub {
   font-family: var(--sans);
-  font-size: 0.56rem;
+  font-size: var(--sub-size, 0.56rem);
   font-weight: 500;
   letter-spacing: 0.4em;
   text-transform: uppercase;
   opacity: 0.66;
-  margin-top: 0.42rem;
-  padding-left: 0.1em;
+  margin-top: 0.42em;
+  margin-right: -0.4em; /* cancel trailing letter-space so centring is optical */
+}
+
+/* Mobile: the nav panel stays closed, so the docked logo needs its own
+   backdrop — a full-width glass strip across the whole header, shared with
+   the burger. Rendered as a separate fixed element so Framer's FLIP on the
+   logo doesn't distort it mid-flight. */
+.brand-topbar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .brand-topbar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 84px; /* covers the logo (top 20px) and the 44px burger */
+    z-index: 110; /* under the logo (120) and burger (130) */
+    background: rgba(68, 50, 35, 0.4);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
 }
