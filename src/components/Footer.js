@@ -14,11 +14,11 @@ export default function Footer() {
           <div>
             <h4>Visit</h4>
             <p>
-              14 Linden Court
+              Ilkovičova 2
               <br />
-              Old Town, 2nd floor
+              Karlova Ves
               <br />
-              City 00000
+              841 04 Bratislava
             </p>
           </div>
           <div>
@@ -34,9 +34,9 @@ export default function Footer() {
           <div>
             <h4>Contact</h4>
             <p>
-              <a href="tel:+10000000000">+1 (000) 000-0000</a>
+              <a href="tel:+421951060042">+421 951 060 042</a>
               <br />
-              <a href="mailto:hello@citadel.house">hello@citadel.house</a>
+              <a href="mailto:massagecitadel@gmail.com">massagecitadel@gmail.com</a>
             </p>
           </div>
           <div>

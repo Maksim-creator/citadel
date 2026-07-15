@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Cal, { getCalApi } from '@calcom/embed-react';
 import { SERVICES } from '../data';
 import './Booking.css';
@@ -38,6 +38,46 @@ const CAL_UI = {
 
 export default function Booking() {
   const [service, setService] = useState(SERVICES[0].slug);
+  const tabsRef = useRef(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const updateArrows = useCallback(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    const overflow = el.scrollWidth > el.clientWidth + 8;
+    setCanPrev(overflow && el.scrollLeft > 8);
+    setCanNext(overflow && el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    updateArrows();
+    el.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    return () => {
+      el.removeEventListener('scroll', updateArrows);
+      window.removeEventListener('resize', updateArrows);
+    };
+  }, [updateArrows]);
+
+  // Keep the active tab in view — matters when a "Book" link in the
+  // Services section picks a treatment deep in the strip.
+  useEffect(() => {
+    const track = tabsRef.current;
+    const active = track?.querySelector('.is-active');
+    if (!track || !active) return;
+    track.scrollTo({
+      left: active.offsetLeft - (track.clientWidth - active.offsetWidth) / 2,
+      behavior: 'smooth',
+    });
+  }, [service]);
+
+  const nudge = (dir) => {
+    const el = tabsRef.current;
+    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: 'smooth' });
+  };
 
   // "Book" links in the Services section broadcast the chosen slug.
   useEffect(() => {
@@ -70,19 +110,43 @@ export default function Booking() {
           works, and confirmation lands in your inbox right away.
         </p>
 
-        <div className="booking__services reveal" data-delay="3" role="tablist" aria-label="Treatment">
-          {SERVICES.map((s) => (
-            <button
-              key={s.slug}
-              role="tab"
-              aria-selected={service === s.slug}
-              className={`booking__service ${service === s.slug ? 'is-active' : ''}`}
-              onClick={() => setService(s.slug)}
-            >
-              <span className="booking__service-name">{s.label}</span>
-              <span className="booking__service-meta">{`${s.duration} · ${s.price}`}</span>
-            </button>
-          ))}
+        <div className="booking__carousel reveal" data-delay="3">
+          <button
+            className="booking__tabs-arrow"
+            aria-label="Previous treatments"
+            disabled={!canPrev}
+            onClick={() => nudge(-1)}
+          >
+            ←
+          </button>
+          <div
+            className={`booking__services ${canPrev ? 'has-more-left' : ''} ${canNext ? 'has-more-right' : ''}`}
+            role="tablist"
+            aria-label="Treatment"
+            ref={tabsRef}
+            data-lenis-prevent
+          >
+            {SERVICES.map((s) => (
+              <button
+                key={s.slug}
+                role="tab"
+                aria-selected={service === s.slug}
+                className={`booking__service ${service === s.slug ? 'is-active' : ''}`}
+                onClick={() => setService(s.slug)}
+              >
+                <span className="booking__service-name">{s.label}</span>
+                <span className="booking__service-meta">{`${s.duration} · ${s.price}`}</span>
+              </button>
+            ))}
+          </div>
+          <button
+            className="booking__tabs-arrow"
+            aria-label="More treatments"
+            disabled={!canNext}
+            onClick={() => nudge(1)}
+          >
+            →
+          </button>
         </div>
 
         <div className="booking__cal reveal" data-delay="4">
@@ -97,8 +161,8 @@ export default function Booking() {
 
         <div className="booking__alt reveal" data-delay="4">
           <span>Prefer to talk?</span>
-          <a href="tel:+10000000000">+1 (000) 000-0000</a>
-          <a href="mailto:hello@citadel.house">hello@citadel.house</a>
+          <a href="tel:+421951060042">+421 951 060 042</a>
+          <a href="mailto:massagecitadel@gmail.com">massagecitadel@gmail.com</a>
         </div>
       </div>
     </section>

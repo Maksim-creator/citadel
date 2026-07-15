@@ -37,7 +37,7 @@ export default function Hero() {
           <a href="#contacts" className="hero__contacts">
             Contacts
           </a>
-          <span className="hero__address">Mayfair, London</span>
+          <span className="hero__address">Ilkovičova 2, Bratislava</span>
         </div>
       </div>
     </section>

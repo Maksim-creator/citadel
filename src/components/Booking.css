@@ -25,12 +25,95 @@
   line-height: 1.7;
 }
 
+/* Treatment picker: a single-row carousel — swipe on touch, arrows on
+   desktop, snap to tabs. */
+.booking__carousel {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  margin-top: 3rem;
+  min-width: 0;
+}
 .booking__services {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
   gap: 0.9rem;
-  margin-top: 3rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  padding: 2px; /* keep focus rings/borders unclipped */
+  /* Soft edge fades hint there's more to scroll — but only on the side that
+     actually has hidden content, so edge tabs are never veiled. The stops
+     are registered custom properties (see @property below), so the fade
+     eases in and out instead of popping. */
+  --fade-left: 0px;
+  --fade-right: 0px;
+  transition: --fade-left 0.45s var(--ease), --fade-right 0.45s var(--ease);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--fade-left),
+    #000 calc(100% - var(--fade-right)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--fade-left),
+    #000 calc(100% - var(--fade-right)),
+    transparent 100%
+  );
+}
+/* Registering the vars makes them interpolable, i.e. the mask stops can
+   actually animate. */
+@property --fade-left {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --fade-right {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+.booking__services.has-more-left {
+  --fade-left: 28px;
+}
+.booking__services.has-more-right {
+  --fade-right: 28px;
+}
+.booking__services::-webkit-scrollbar {
+  display: none;
+}
+.booking__service {
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+}
+
+.booking__tabs-arrow {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 249, 243, 0.24);
+  color: var(--cream);
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease),
+    opacity 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.booking__tabs-arrow:hover:not(:disabled) {
+  background: var(--cream);
+  color: var(--ink);
+  border-color: var(--cream);
+}
+.booking__tabs-arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
 }
 .booking__service {
   display: flex;
@@ -116,5 +199,12 @@
     flex-direction: column;
     gap: 0.9rem;
     margin-top: 2rem;
+  }
+  /* Phones: swipe is the gesture — hide the arrows. */
+  .booking__tabs-arrow {
+    display: none;
+  }
+  .booking__carousel {
+    margin-top: 2.25rem;
   }
 }
